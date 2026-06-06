@@ -21,8 +21,22 @@ func Handleget(w http.ResponseWriter, r *http.Request) {
 	w.Write([]byte(f))
 }
 
+func Handlepost(w http.ResponseWriter, r *http.Request) {
+	r_url:=r.URL.Path[1:]
+	fmt.Println(r_url)
+
+	r.ParseForm()
+	r_form:=r.Form
+	fmt.Println(r_form["username"])
+
+	var text string
+	fmt.Scan(&text)
+	w.Write([]byte(text))
+}
+
 func main() {
 
 	http.HandleFunc("/", Handleget)
+	http.HandleFunc("/submit", Handlepost)
 	http.ListenAndServe("172.26.27.214:3412", nil)
 }
